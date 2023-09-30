@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Yafeng
+ * @package school-theme
  */
 
 get_header();
@@ -14,8 +14,7 @@ get_header();
 
 			<header class="page-header">
 				<?php
-				the_archive_title( '<h1 class="page-title">', '</h1>' );
-				the_archive_description( '<div class="archive-description">', '</div>' );
+				echo '<h1 class="page-title">The Class</h1>';
 				?>
 			</header><!-- .page-header -->
 		
@@ -23,11 +22,13 @@ get_header();
 		$args = array(
 			'post_type'      => 'school-student',
 			'posts_per_page' => -1,
+			'order'          => 'ASC',
+			'orderby'        => 'name',
 			'tax_query' 	 => array(
 				array(
 					'taxonomy' => 'school-student-category',
 					'field'    => 'slug',
-					'terms'    => 'designers'  
+					'terms'    => 'designers',
  				)
 			)
 		);
@@ -41,7 +42,7 @@ get_header();
 				<article>
 					<a href="<?php the_permalink(); ?>">
 						<h2><?php the_title(); ?></h2>
-						<?php the_post_thumbnail('large'); ?>
+						<?php the_post_thumbnail('medium'); ?>
 					</a>
 					<?php the_excerpt(); ?>
 				</article>
@@ -53,6 +54,8 @@ get_header();
 		$args = array(
 			'post_type'      => 'school-student',
 			'posts_per_page' => -1,
+			'order'    		 => 'ASC',
+			'orderby' 		 => 'name',
 			'tax_query' 	 => array(
 				array(
 					'taxonomy' => 'school-student-category',
@@ -70,9 +73,10 @@ get_header();
 				<article>
 					<a href="<?php the_permalink(); ?>">
 						<h2><?php the_title(); ?></h2>
-						<?php the_post_thumbnail('large'); ?>
+						<?php the_post_thumbnail('medium'); ?>
 					</a>
 					<?php the_excerpt(); ?>
+					<?php echo 'Specialty: ' . $args['tax_query'][0]['taxonomy'];?>
 				</article>
 				<?php
 			}

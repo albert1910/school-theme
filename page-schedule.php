@@ -9,7 +9,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Yafeng
+ * @package school
  */
 
 get_header();
@@ -30,9 +30,47 @@ get_header();
 
 		endwhile; // End of the loop.
 		?>
+		<?php
+		// Check rows existexists.
+		if( have_rows('schedule') ):
+		?>
+			<table>
+				
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Course</th>
+					<th>Instructor</th>
+				</tr>
+			</thead>
+			<tbody>
+			<!--Loop through rows. -->
+			<?php
+			while( have_rows('schedule') ) : the_row();
 
-	</main><!-- #main -->
-
+				// Load sub field value.
+				$date = get_sub_field('date');
+				$course = get_sub_field('course');
+				$instrutor = get_sub_field('instructor');
+			?>
+			<tr>
+				<td><?php echo $date;?></td>
+				<td><?php echo $course;?></td>
+				<td><?php echo $instrutor;?></td>
+			</tr>
+			<?php
+			// End loop.
+			endwhile;
+			?>
+		</tbody>
+		</table>
+		<?php
+		// No value.
+		else :
+			echo "No schedule available.";
+		endif;
+		?>
+		</main><!-- #main -->
 <?php
-get_sidebar();
+
 get_footer();

@@ -17,6 +17,7 @@ get_header();
 
 	<main id="primary" class="site-main">
 
+	<div data-aos="fade-up">
 		<?php
 		while ( have_posts() ) :
 			the_post();
@@ -30,9 +31,12 @@ get_header();
 
 		endwhile; // End of the loop.
 		?>
-
+	</div>
 	</main><!-- #main -->
-
+	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    AOS.init();
+  </script>
 <?php
 get_sidebar();
 get_footer();

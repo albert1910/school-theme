@@ -6,13 +6,13 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
- * @package Yafeng
+ * @package school-theme
  */
 
 ?>
 
 	<footer id="colophon" class="site-footer">
-		<div class="footer-contact">
+		<!-- <div class="footer-contact">
 		<?php
 		if ( function_exists( 'get_field' ) ) {
 			if ( ! is_page('contact') ) {
@@ -34,28 +34,26 @@
 			}
     }
 	?>
-		</div><!-- .footer-contact -->
+		</div> -->
+		<!-- .footer-contact -->
+		<?php the_custom_logo() ?>
 		<div class="footer-menus">
-			<nav class='footer-navigation'>
+			<!-- <nav class='footer-navigation'>
 				<?php wp_nav_menu(array('theme_location'=>'footer-left')); ?>
-			</nav>	
+			</nav>	 -->
 			<nav class='footer-navigation'>
-				<?php wp_nav_menu(array('theme_location'=>'footer-right')); ?>
+			<h2>Links</h2>
+			<?php wp_nav_menu(array('theme_location'=>'footer-right')); ?>
 			</nav>
 			
-		</div><!-- .footer-menus -->
+		</div>
+		<!-- .footer-menus -->
 		<div class="site-info">
-			<?php esc_html_e( 'Created by ', 'Yafeng & Yilin' ); ?><a href="<?php echo esc_url( __( 'https://yafengge.ca/school', 'yafeng' ) ); ?>"><?php esc_html_e( 'Yafeng Ge & Yilin Liu', 'yafeng' ); ?></a>
-			<p><?php the_privacy_policy_link(); ?></p>
+			<h2>Credits</h2>
+			<?php esc_html_e( 'Created by ', 'Yafeng & Yilin' ); ?><a href="<?php echo esc_url( __( 'https://yafengge.ca/school', 'school' ) ); ?>"><?php esc_html_e( 'Yafeng Ge & Yilin Liu', 'school' ); ?></a>
     </footer>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
-	<button id="scroll-top" class="scroll-top">
-	<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
-		<path d="M23.677 18.52c.914 1.523-.183 3.472-1.967 3.472h-19.414c-1.784 0-2.881-1.949-1.967-3.472l9.709-16.18c.891-1.483 3.041-1.48 3.93 0l9.709 16.18z"/>
-	</svg>
-	<span class="screen-reader-text">Scroll To Top</span>
-</button>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

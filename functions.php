@@ -1,10 +1,10 @@
 <?php
 /**
- * Yafeng Theme functions and definitions
+ *school-theme  Theme functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Yafeng
+ * @package school-theme
  */
 
 if ( ! defined( '_S_VERSION' ) ) {
@@ -19,14 +19,14 @@ if ( ! defined( '_S_VERSION' ) ) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function yafeng_setup() {
+function school_setup() {
 	/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.
 		* If you're building a theme based on FWD Starter Theme, use a find and replace
 		* to change 'fwd' to the name of your theme in all the template files.
 		*/
-	load_theme_textdomain( 'Yafeng', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'school', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
@@ -82,7 +82,7 @@ function yafeng_setup() {
 	add_theme_support(
 		'custom-background',
 		apply_filters(
-			'yafeng_custom_background_args',
+			'school_custom_background_args',
 			array(
 				'default-color' => 'ffffff',
 				'default-image' => '',
@@ -116,9 +116,9 @@ function yafeng_setup() {
 	 */
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'responsive-embeds' );
-	// add_theme_support( 'align-wide' );
+	add_theme_support( 'align-wide' );
 }
-add_action( 'after_setup_theme', 'yafeng_setup' );
+add_action( 'after_setup_theme', 'school_setup' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -127,25 +127,25 @@ add_action( 'after_setup_theme', 'yafeng_setup' );
  *
  * @global int $content_width
  */
-function yafeng_content_width() {
+function school_content_width() {
 	// This variable is intended to be overruled from themes.
 	// Open WPCS issue: {@link https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/issues/1043}.
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
-	$GLOBALS['content_width'] = apply_filters( 'yafeng_content_width', 960 );
+	$GLOBALS['content_width'] = apply_filters( 'school_content_width', 960 );
 }
-add_action( 'after_setup_theme', 'yafeng_content_width', 0 );
+add_action( 'after_setup_theme', 'school_content_width', 0 );
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function yafeng_widgets_init() {
+function school_widgets_init() {
 	register_sidebar(
 		array(
 			'name'          => esc_html__( 'Sidebar1', 'school' ),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here.', 'yafeng' ),
+			'description'   => esc_html__( 'Add widgets here.', 'school' ),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
@@ -163,56 +163,57 @@ function yafeng_widgets_init() {
 	    ) 
     );
 }
-add_action( 'widgets_init', 'yafeng_widgets_init' );
+add_action( 'widgets_init', 'school_widgets_init' );
 
 /**
  * Enqueue scripts and styles.
  */
 
- function yafeng_scripts(){
+ function school_scripts(){
 	wp_enqueue_style(
-		'yafeng-googlefonts',//unique handle
+		'school-googlefonts',//unique handle
 		'href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap',//url
 		array(),// dependencies
 		null,// only use null for Google Fonts
 		'all'//default
 	);
 	wp_enqueue_style(
-		'yafeng-googlefonts',//unique handle
+		'school-googlefonts',//unique handle
 		'href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap',//url
 		array(),// dependencies
 		null,// only use null for Google Fonts
 		'all'//default
 	);
 
-	wp_enqueue_style( 'yafeng-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'yafeng-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'school-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_style_add_data( 'school-style', 'rtl', 'replace' );
 
-	wp_enqueue_script( 'yafeng-navigation', get_template_directory_uri() . '/js/navigation.js', array(),
+	wp_enqueue_script( 'school-navigation', get_template_directory_uri() . '/js/navigation.js', array(),
 	 _S_VERSION, true );
 
-	wp_enqueue_script( 'yafeng-scroll', get_template_directory_uri() . '/js/scroll.js', array(),
+	wp_enqueue_script( 'school-scroll', get_template_directory_uri() . '/js/scroll.js', array(),
 	_S_VERSION, array( 'strategy' => 'defer' )   );
 	 
 
-	if(is_front_page()){
+	if(is_home()){
 		wp_enqueue_style( 
-			'swiper-styles', 
-			get_template_directory_uri() .'/css/swiper-bundle.css',
-			array(), 
-			'10.2.0' );
-		wp_enqueue_script( 
-			'swiper-scripts', 
-			get_template_directory_uri() .'/js/swiper-bundle.min.js',
+			'aos-styles', 
+			get_template_directory_uri() .'/css/aos.css',
 			array(),
-			'10.2.0', 
+			'2.3.1'
+			);
+		wp_enqueue_script( 
+			'aos-scripts', 
+			get_template_directory_uri() .'/aos/aos.js',
+			array(), 
+			'2.3.1',
 			array( 'strategy' => 'defer' )  
 		);
 		wp_enqueue_script( 
-			'swiper-settings', 
-			get_template_directory_uri() .'/js/swiper-settings.js', 
-			array( 'swiper-scripts' ),
-			_S_VERSION, 
+			'aos-settings', 
+			get_template_directory_uri() .'/aos/aos-settings.js', 
+			array( 'aos-scripts' ),
+			_S_VERSION,
 			array( 'strategy' => 'defer' )  
 		);
 	}
@@ -221,7 +222,7 @@ add_action( 'widgets_init', 'yafeng_widgets_init' );
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'yafeng_scripts' );
+add_action( 'wp_enqueue_scripts', 'school_scripts' );
 
 /**
  * Custom template tags for this theme.
@@ -249,29 +250,31 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 //Add Theme Color Meta Tag
-function yafeng_theme_color(){
+function school_theme_color(){
 	echo '<meta name="theme-color" content="#fff200">';
 }
-add_action('wp_head','yafeng_theme_color', 1);
+add_action('wp_head','school_theme_color', 1);
 
-//Change the Excerpt length from 55 to 20
-function yafeng_excerpt_length($length){
-	return 20;
+//Change the Excerpt length to 25
+function student_excerpt_length($length){
+	return 25;
 }
-add_filter('excerpt_length','yafeng_excerpt_length',999);
+add_filter('excerpt_length','student_excerpt_length',999);
 
 //Modify the end of the excerpt
 
-function yafeng_excerpt_more($more){
-    $more = '...<a class="read-more" href="'. esc_url( get_permalink() ) .'">Continue Reading</a>';
-    return $more;
+function student_excerpt_more($more){
+	if (is_post_type_archive('school-student')){}
+    $more = '...<a class="read-more" href="'. esc_url( get_permalink() ) .'">Read more about the student ...</a>';
+	return $more;
 }
-add_filter('excerpt_more','yafeng_excerpt_more');
+
+add_filter('excerpt_more','student_excerpt_more');
 
 //Create Block template
-function yafeng_block_editor_templates() {
+function school_block_editor_templates() {
     // Replace ‘14’ with the Page ID
-    if ( isset( $_GET['post'] ) && '64' == $_GET['post'] ) {
+    if ( isset( $_GET['post'] ) && '71' == $_GET['post'] ) {
         $post_type_object = get_post_type_object( 'page' );
         $post_type_object->template = array(
             //define blocks here...
@@ -289,48 +292,13 @@ function yafeng_block_editor_templates() {
                 )
             ),
             array(
-                'core/image',
-                array(
-                    'align' => 'left',
-                    'sizeSlug' => 'medium'
-                )
-            ),
-            array(
                 'core/paragraph',
                 array(
-                    'placeholder' => 'Add text here...'
+                    'placeholder' => 'Add courses'
                 )
             ),
         );
         $post_type_object->template_lock = 'all';
     }
 }
-add_action('init', 'yafeng_block_editor_templates');
-
-
-//Change the Block Editor to Classic Editor
-
-function yafeng_post_filter( $use_block_editor, $post ) {
-    // Change 112 to your Page ID
-    $page_ids = array( 88 );
-    if ( in_array( $post->ID, $page_ids ) ) {
-        return false;
-    } else {
-        return $use_block_editor;
-    }
-}
-add_filter( 'use_block_editor_for_post', 'yafeng_post_filter', 10, 2 );
-
-// Remove editor from home page
-
-function yafeng_post_filter_home( $use_block_editor, $post ) {
-    // Change 6 to your Page ID
-    $page_ids = array( 37 );
-    if ( in_array( $post->ID, $page_ids ) ) {
-        return false;
-    } else {
-        return $use_block_editor;
-    }
-}
-add_filter( 'use_block_editor_for_post', 'yafeng_post_filter_home', 10, 2 );
-
+add_action('init', 'school_block_editor_templates');

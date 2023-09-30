@@ -46,6 +46,7 @@ function school_register_custom_post_types() {
         'menu_position'      => 5,
         'menu_icon'          => 'dashicons-archive',
         'supports'           => array( 'title', 'thumbnail', 'editor' ),
+        'template'           => array(array('core/button')),
     );
 
     register_post_type( 'school-student', $args );
@@ -77,6 +78,7 @@ function school_register_custom_post_types() {
         'set_featured_image'    => __( 'Set Staff featured image'),
         'remove_featured_image' => __( 'Remove Staff featured image'),
         'use_featured_image'    => __( 'Use as featured image'),
+        ''
     );
 
     $args = array(
@@ -96,6 +98,7 @@ function school_register_custom_post_types() {
         'menu_position'      => 6,
         'menu_icon'          => 'dashicons-forms',
         'supports'           => array( 'title', 'editor' ),
+        'course'            => __( 'Add course'),
     );
 
     register_post_type( 'school-staff', $args );
@@ -135,31 +138,7 @@ function school_register_taxonomies() {
     register_taxonomy( 'school-student-category', array( 'school-student' ), $args );
 
     // Add Featured taxonomy
-    $labels = array(
-        'name'              => _x( 'Featured', 'taxonomy general name' ),
-        'singular_name'     => _x( 'Featured', 'taxonomy singular name' ),
-        'search_items'      => __( 'Search Featured' ),
-        'all_items'         => __( 'All Featured' ),
-        'parent_item'       => __( 'Parent Featured' ),
-        'parent_item_colon' => __( 'Parent Featured:' ),
-        'edit_item'         => __( 'Edit Featured' ),
-        'update_item'       => __( 'Update Featured' ),
-        'add_new_item'      => __( 'Add New Featured' ),
-        'new_item_name'     => __( 'New Work Featured' ),
-        'menu_name'         => __( 'Featured' ),
-    );
 
-    $args = array(
-        'hierarchical'      => true,
-        'labels'            => $labels,
-        'show_ui'           => true,
-        'show_admin_column' => true,
-        'show_in_rest'      => true,
-        'query_var'         => true,
-        'rewrite'           => array( 'slug' => 'featured' ),
-    );
-
-    register_taxonomy( 'school-featured', array( 'school-work' ), $args );
     
         // Register taxonomy for staff CPT (Yilin did)
         $labels = array(
@@ -173,7 +152,7 @@ function school_register_taxonomies() {
             'update_item'       => __( 'Update Staff' ),
             'add_new_item'      => __( 'Add New Staff' ),
             'new_item_name'     => __( 'New Work Staff' ),
-            'menu_name'         => __( 'Staff' ),
+            'menu_name'         => __( 'Role' ),
         );
     
         $args = array(
@@ -190,6 +169,22 @@ function school_register_taxonomies() {
 
 }
 add_action( 'init', 'school_register_taxonomies');
+
+//Change Stuff Placeholder text
+function wpb_change_title_text( $title ){
+    $screen = get_current_screen();
+  
+    if  ( 'school-staff' == $screen->post_type ) {
+         $title = 'Add staff name';
+    }
+    if  ( 'school-student' == $screen->post_type ) {
+        $title = 'Add student name';
+   }
+  
+    return $title;
+}
+  
+add_filter( 'enter_title_here', 'wpb_change_title_text' );
 //flush parmalink
 function school_rewrite_flush() {
     school_register_custom_post_types();

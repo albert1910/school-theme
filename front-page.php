@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Yafeng
+ * @package school-theme
  */
 
 get_header();
@@ -30,7 +30,6 @@ get_header();
 			<section class='home-work'>
 			</section>
 			<section class='home-work'>
-				<h2>Featured Works</h2>
 			<?php
 				$args = array(
 					'post_type'      => 'school-work',
@@ -61,23 +60,9 @@ get_header();
 				}
 				?>
 			</section>
-			<section class='home-left'>
+			<section >
 			<?php
-				if ( function_exists( 'get_field' ) ) {
-
-				if ( get_field( 'left_section_heading' ) ) {
-					echo '<h2>';
-					the_field( 'left_section_heading' );
-					echo '</h2>';
-				}
-
-				if ( get_field( 'left_section_content' ) ) {
-					echo '<p>';
-					the_field( 'left_section_content' );
-					echo '</p>';
-				}
-
-			}
+				the_content();
 			?>
 			</section>
 			<section class='home-right'>
